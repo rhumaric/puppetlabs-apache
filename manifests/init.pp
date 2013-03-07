@@ -16,7 +16,8 @@ class apache (
   $default_mods = true,
   $service_enable = true,
   $serveradmin  = 'root@localhost',
-  $sendfile     = false
+  $sendfile     = false,
+  $purge_vhosts_dir = true
 ) {
   include apache::params
 
@@ -39,7 +40,7 @@ class apache (
     ensure  => directory,
     path    => $apache::params::vdir,
     recurse => true,
-    purge   => true,
+    purge   => $purge_vhost_dir,
     notify  => Service['httpd'],
     require => Package['httpd'],
   }
