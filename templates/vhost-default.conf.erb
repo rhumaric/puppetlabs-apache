@@ -26,6 +26,13 @@ NameVirtualHost <%= vhost_name %>:<%= port %>
 <% if access_log -%>
   CustomLog <%= logroot %>/<%= name %>_access.log combined
 <% end -%>
+<% if !setenv.empty? -%>
+
+<IfModule mod_env.c><% setenv.each_pair do |name, value| %>
+  SetEnv <%= name %> <%= value %>
+<% end %></IfModule>
+
+<% end -%>
   ServerSignature Off
 </VirtualHost>
 

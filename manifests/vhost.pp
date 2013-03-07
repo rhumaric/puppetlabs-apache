@@ -22,6 +22,7 @@
 #   to /var/log/<apache log location>/
 # - The $access_log specifies if *_access.log directives should be configured.
 # - The $ensure specifies if vhost file is present or absent.
+# - The $setenv provides a map of environment variables that will be set inside the vhost
 #
 # Actions:
 # - Install Apache Virtual Hosts
@@ -56,7 +57,8 @@ define apache::vhost(
     $vhost_name         = $apache::params::vhost_name,
     $logroot            = "/var/log/$apache::params::apache_name",
     $access_log         = true,
-    $ensure             = 'present'
+    $ensure             = 'present',
+    $setenv             = {}
   ) {
 
   validate_re($ensure, '^(present|absent)$',
